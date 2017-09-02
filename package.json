@@ -1,0 +1,29 @@
+{
+  "name": "unity-item-managers",
+  "version": "0.0.1",
+  "description": "A Request is an async op that may succeed, fail or be cancelled. Requests may also retrieve an item of arbitrary type. Request interfaces are kept in a separate package so that other packages may interact with requests without dependencies on any implementation.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/beatthat/unity-item-managers.git"
+  },
+  "files": [
+    "index.js",
+    "scripts",
+    "src"
+  ],
+  "author": "larrykirschner@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/beatthat/unity-item-managers/issues"
+  },
+  "homepage": "https://github.com/beatthat/unity-item-managers",
+  "scripts": {
+    "postinstall": "node scripts/postinstall.js",
+    "install:test": "rm -f *.tgz && npm pack && cd test && npm run clean && npm install"
+  },
+  "dependencies": {
+    "mkdirp": "^0.5.1",
+    "ncp": "^2.0.0"
+  }
+}
