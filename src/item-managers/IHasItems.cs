@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace BeatThat.UI
 {
+	/// <summary>
+	/// Interface to expose a managed collection of items.
+	/// </summary>
 	public interface IHasItems 
 	{
 		int count { get; }

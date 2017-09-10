@@ -1,11 +1,12 @@
 {
-  "name": "unity-item-managers",
-  "version": "0.0.1",
-  "description": "A Request is an async op that may succeed, fail or be cancelled. Requests may also retrieve an item of arbitrary type. Request interfaces are kept in a separate package so that other packages may interact with requests without dependencies on any implementation.",
+  "name": "item-managers",
+  "scope": "ape",
+  "version": "0.0.2",
+  "description": "ItemManagers are interfaces for managing a collection of (usually UI) items--e.g. a scrolling list or a grid--without concern for how the items are presented",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/beatthat/unity-item-managers.git"
+    "url": "git+https://github.com/beatthat/item-managers.git"
   },
   "files": [
     "index.js",
@@ -15,15 +16,20 @@
   "author": "larrykirschner@gmail.com",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/beatthat/unity-item-managers/issues"
+    "url": "https://github.com/beatthat/item-managers/issues"
   },
-  "homepage": "https://github.com/beatthat/unity-item-managers",
+  "homepage": "https://github.com/beatthat/item-managers",
   "scripts": {
     "postinstall": "node scripts/postinstall.js",
-    "install:test": "rm -f *.tgz && npm pack && cd test && npm run clean && npm install"
+    "install:test": "rm -f *.tgz && npm pack && cd test && npm run clean && npm install",
+    "clean": "rm -f *.tgz && cd test && npm run clean",
+    "sync:test2src": "rsync -rv --include '*/' --include '*.cs' --exclude '*' --prune-empty-dirs test/Assets/Plugins/${npm_package_scope}/${npm_package_name}/ ./src/${npm_package_name}/",
+    "pub:tag": "git add -A && git commit -m ${npm_package_version} && git tag -a ${npm_package_version} -m ${npm_package_version} && git push origin master && git push origin ${npm_package_version}"
   },
   "dependencies": {
     "mkdirp": "^0.5.1",
-    "ncp": "^2.0.0"
+    "ncp": "^2.0.0",
+    "pools": "github:beatthat/pools#semver:^0.0.7",
+    "property-interfaces": "github:beatthat/property-interfaces#semver:^0.0.3"
   }
 }
