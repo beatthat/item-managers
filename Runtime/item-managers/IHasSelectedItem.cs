@@ -1,10 +1,10 @@
-﻿using UnityEngine.Events;
 using UnityEngine;
+using UnityEngine.Events;
 
 
-namespace BeatThat.UI
+namespace BeatThat.ItemManagers
 {
-	public interface IHasSelectedItem 
+    public interface IHasSelectedItem 
 	{
 		UnityEvent selectedItemUpdated { get; }
 

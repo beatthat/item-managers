@@ -1,12 +1,14 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
+using BeatThat.Pools;
+using BeatThat.Properties;
 using UnityEngine;
 
-namespace BeatThat.UI
+namespace BeatThat.ItemManagers
 {
-	/// <summary>
-	/// Interface to expose a managed collection of items.
-	/// </summary>
-	public interface IHasItems 
+    /// <summary>
+    /// Interface to expose a managed collection of items.
+    /// </summary>
+    public interface IHasItems 
 	{
 		int count { get; }
 
@@ -27,3 +29,4 @@ namespace BeatThat.UI
 		}
 	}
 }
+
