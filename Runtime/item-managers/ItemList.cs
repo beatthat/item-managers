@@ -301,7 +301,7 @@ namespace BeatThat.ItemManagers
 			return hasItems.GetItems(items);
 		}
 
-		private T InstantiatePrefab<T>(T p) where T : UnityEngine.Object
+		protected T InstantiatePrefab<T>(T p) where T : UnityEngine.Object
 		{
 			#if UNITY_EDITOR
 			if(!Application.isPlaying) {
@@ -312,6 +312,11 @@ namespace BeatThat.ItemManagers
 			return Instantiate (p);
 		}
 
+        virtual protected ListItemType NewItem(ListItemType prefab)
+        {
+            return InstantiatePrefab(prefab);
+        }
+
 		/// <summary>
 		/// Creates a new item and inserts it into the list at the given index
 		/// </summary>
@@ -321,7 +326,7 @@ namespace BeatThat.ItemManagers
 		public ListItemType InsertItemAt(int index, ListItemType prefab = null)
 		{
 			var prefabResolved = prefab ?? m_itemPrefab;
-			var item = InstantiatePrefab (prefabResolved);
+            var item = NewItem (prefabResolved);
 
 			if(index < m_listItems.Count) {
 				// the actual transform sibling order of the items may be different from the list, e.g. if there are bookend items not in the list
@@ -389,9 +394,17 @@ namespace BeatThat.ItemManagers
 				if(item == null) {
 					continue;
 				}
-				Destroy(item.gameObject);
+                DisposeItem(item);
 			}
 		}
+
+        virtual protected void DisposeItem(ListItemType item)
+        {
+            if(item == null) {
+                return;
+            }
+            Destroy(item.gameObject);
+        }
 
 		virtual protected Transform FindContentParent()
 		{
