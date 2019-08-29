@@ -4,6 +4,7 @@ using BeatThat.Controllers;
 using BeatThat.GetComponentsExt;
 using BeatThat.ManagePrefabInstances;
 using BeatThat.Pools;
+using BeatThat.Pools.UnityObjects;
 using BeatThat.SafeRefs;
 using BeatThat.TransformPathExt;
 using BeatThat.UnityEvents;
@@ -368,12 +369,15 @@ namespace BeatThat.ItemManagers
 			}
 		}
 
-		public ListItemType RemoveItemAt(int index)
+		public ListItemType RemoveItemAt(int index, bool disposeItem = true)
 		{
-			Debug.LogError("[" + Time.frameCount + "][" + this.Path() + "] RemoveItemAt " + index + "!");
-			var item = m_listItems[index];
+			var item = m_listItems[index].value;
 			m_listItems.RemoveAt(index);
-			return item.value;
+            if(disposeItem)
+            {
+                DisposeItem(item);
+            }
+			return item;
 		}
 
 		/// <summary>
@@ -401,6 +405,18 @@ namespace BeatThat.ItemManagers
         virtual protected void DisposeItem(ListItemType item)
         {
             if(item == null) {
+                return;
+            }
+            var p = item as IPoolable;
+            if(p != null)
+            {
+                p.ReleasePoolable();
+                return;
+            }
+            var d = item as IDisposable;
+            if(d != null)
+            {
+                d.Dispose();
                 return;
             }
             Destroy(item.gameObject);
