@@ -13,6 +13,8 @@ namespace BeatThat.ItemManagers
 		int count { get; }
 
 		int GetItems<T>(ICollection<T> items) where T : class;
+
+		IEnumerable<T> GetItems<T>() where T : class;
 	}
 
 	public static class IHasItemsExtensions

@@ -6,10 +6,9 @@ namespace BeatThat.ItemManagers
 
 	public interface ItemManager<ItemType> : ItemManager
 	{
-		int GetAll(ICollection<ItemType> result);
-
 		int AddItems(ICollection<ItemType> items);
-
+		int GetAll(ICollection<ItemType> result);
+		IEnumerable<ItemType> GetAll();
 		bool GetLastItem<T>(out T item) where T : class;
 	}
 
